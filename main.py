@@ -11,7 +11,7 @@ client_id = YOUR_CLIENT_ID #enter your clientID (komoot.com/user/{number})
 tour_url = f'https://www.komoot.de/api/v007/users/{client_id}/tours/' #URL to get tourdata from the komoot API
 login_url = "https://account.komoot.com/v1/signin" #URL to sign into your komoot account
 
-token = "YOUR_API_TOKEN" #enter your integration token from the Notion API
+token = "YOUR_API_TOKEN" #enter your integration token from the Notion API (don't forget to share your database to the integration)
  
 databaseID = "YOUR_DATABASE_ID" #enter your databseID (notion.so/{number}?v=05ec34ed86cf48909d9e38f2e75af478)
  

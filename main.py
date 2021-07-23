@@ -6,14 +6,14 @@ import time
 #Your Komoot Data
 password = 'YOUR_PASSWORD' #enter your password
 email = 'YOUR_EMAIL' #enter your email
-client_id = YOUR_CLIENT_ID #enter your clientID (komoot.com/user/{number})
+client_id = YOUR_CLIENT_ID #enter your clientID (komoot.com/user/{clientID})
 
 tour_url = f'https://www.komoot.de/api/v007/users/{client_id}/tours/' #URL to get tourdata from the komoot API
 login_url = "https://account.komoot.com/v1/signin" #URL to sign into your komoot account
 
 token = "YOUR_API_TOKEN" #enter your integration token from the Notion API (don't forget to share your database to the integration)
  
-databaseID = "YOUR_DATABASE_ID" #enter your databseID (notion.so/{number}?v=05ec34ed86cf48909d9e38f2e75af478)
+databaseID = "YOUR_DATABASE_ID" #enter your databseID (notion.so/{databaseID}?v=05ec34ed86cf48909d9e38f2e75af478)
  
 #creating a session to login into your kommot account
 s = requests.Session()

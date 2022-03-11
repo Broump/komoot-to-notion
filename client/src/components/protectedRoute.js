@@ -1,21 +1,17 @@
-import React, { Component } from "react"
-import { Route, Redirect} from "react-router-dom"
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
 
-function ProtectedRoute({isAuth: isAuth, component: Component, ...rest}){
-    return (
-        <Route
-      {...rest}
-      render={(props) => {
-        if (isAuth) {
-          return <Component />;
-        } else {
-          return (
-            <Redirect
-              to={{ pathname: "/login", state: { from: props.location } }}
-            />
-          );
-        }
-      }}
-    />
-    )
-}
+const useAuth = () => {
+	const user = { loggedIn: false };
+	if (localStorage.getItem("token")) {
+		user.loggedIn = true;
+	}
+	return user && user.loggedIn;
+};
+
+const ProtectedRoute = () => {
+	const isAuth = useAuth();
+	return isAuth ? <Outlet /> : <Navigate to="/login" />;
+};
+
+export default ProtectedRoute;

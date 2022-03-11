@@ -1,24 +1,23 @@
-
+import React from "react";
+import ProtectedRoute from "./components/protectedRoute";
+import Register from "./components/register";
+import Login from "./components/login";
+import Process from "./components/process";
+import Home from "./components/home";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Routes>
+			<Route path="/" element={<Home />} />
+			<Route path="/login" element={<Login />} />
+			<Route path="/register" element={<Register />} />
+			<Route element={<ProtectedRoute />}>
+				<Route path="/process" element={<Process />} />
+			</Route>
+			<Route path="*" element={<div>404 Not Found!</div>} />
+		</Routes>
+	);
 }
 
 export default App;

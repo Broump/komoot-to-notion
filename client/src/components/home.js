@@ -1,6 +1,5 @@
 import React from "react";
-import { TextInput, PasswordInput, Button, Box, Text } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Header, Box, Text } from "@mantine/core";
 import axios from "axios";
 
 function Home() {

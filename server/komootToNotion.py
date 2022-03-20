@@ -2,6 +2,8 @@ import requests
 import json
 import math
 import time
+import os
+import sys
 
 
 class KomootToNotion:
@@ -328,8 +330,8 @@ class KomootToNotion:
         return(response.text)
 
 
-KN = KomootToNotion(673338137185, "DanielMuenstermann18@gmail.com", "DPrQh5bqv1TPutMU5uCP",
-                    "secret_WdntPIWViLSP8jfpvEBzV38avPrMSCXlqTCCdl0b1uB", "a1598dbcf93f4801bd35e9c905b12e18")
+KN = KomootToNotion(
+    int(sys.argv[1]), sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
 
 query = KN.QueryNotionDatabase()
 
@@ -344,3 +346,6 @@ except IndexError:
     KN.getTourDataANDsendToNotion(0, addAll=True)
 finally:
     print("everyting is uptodate")
+
+
+sys.stdout.flush()

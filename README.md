@@ -6,7 +6,7 @@
 
 - [Repo](https://github.com/Broump/komoot-to-notion> "Komoot-to-Notion Repo")
 
-- [Live](<https://komoot-to-notion.netlify.app> "Live Demo")
+- [Live Demp](<https://komoot-to-notion.netlify.app> "Live Demo")
 
 ## Features
 

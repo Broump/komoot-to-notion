@@ -60,7 +60,7 @@ function Process() {
 	async function CreateProcess() {
 		try {
 			const process = await axios.post(
-				"http://localhost:3001/api/new-process",
+				"https://komoot-to-notion.herokuapp.com/api/new-process",
 				{
 					accestoken: localStorage.getItem("token"),
 					processname: form.values.processname,
@@ -83,6 +83,7 @@ function Process() {
 					});
 					form.reset();
 					setOpenedModal(false);
+					window.location.reload();
 				} else {
 					notifications.showNotification({
 						title: "there was an error",
@@ -100,18 +101,21 @@ function Process() {
 	}
 
 	async function getProcess() {
-		const res = await axios.get("http://localhost:3001/api/get-process", {
-			headers: {
-				accesstoken: localStorage.getItem("token"),
-			},
-		});
+		const res = await axios.get(
+			"https://komoot-to-notion.herokuapp.com/api/get-process",
+			{
+				headers: {
+					accesstoken: localStorage.getItem("token"),
+				},
+			}
+		);
 		return res.data;
 	}
 
 	async function startStopProcess(processid, process_status) {
 		try {
 			const process = await axios.post(
-				"http://localhost:3001/api/startstop-process",
+				"https://komoot-to-notion.herokuapp.com/api/startstop-process",
 				{
 					accestoken: localStorage.getItem("token"),
 					processid: processid,
@@ -177,7 +181,7 @@ function Process() {
 	async function deleteProcess(processid) {
 		try {
 			const process = await axios.post(
-				"http://localhost:3001/api/delete-process",
+				"https://komoot-to-notion.herokuapp.com/api/delete-process",
 				{
 					accestoken: localStorage.getItem("token"),
 					processid: processid,
@@ -226,7 +230,7 @@ function Process() {
 
 	console.log(data);
 
-	if (data) {
+	if (data.length !== "") {
 		return (
 			<Box sx={{ maxWidth: 500 }} mx="auto">
 				{submit ? (
@@ -363,11 +367,11 @@ function Process() {
 										<Text size="">This is how you get your Komootid:</Text>
 										<List type="ordered">
 											<List.Item>
-												go to https://www.komoot.com and log into your account
+												Go to https://www.komoot.com and log into your account
 											</List.Item>
-											<List.Item>go to your profile</List.Item>
+											<List.Item>Go to your profile</List.Item>
 											<List.Item>
-												copy your ID from the URLhttps://www.komoot.de/user/
+												Copy your ID from the URLhttps://www.komoot.de/user/
 												<Mark>578265286</Mark>
 											</List.Item>
 										</List>
@@ -410,7 +414,7 @@ function Process() {
 										withArrow
 										mt="sm"
 									>
-										<Text size="">this is how you get your api token:</Text>
+										<Text size="">This is how you get your API-Token:</Text>
 										<List type="ordered">
 											<List.Item>
 												Sign up in your notion account in your browser
@@ -426,7 +430,7 @@ function Process() {
 												</Text>{" "}
 												and create a new integration
 											</List.Item>
-											<List.Item>copy the internal integration token</List.Item>
+											<List.Item>Copy the internal integration Token</List.Item>
 										</List>
 									</Popover>
 								</Group>
@@ -455,14 +459,14 @@ function Process() {
 										position="right"
 										withArrow
 									>
-										<Text size="">this is how you get your database id:</Text>
+										<Text size="">This is how you get your Database-Id:</Text>
 										<List type="ordered">
 											<List.Item>
 												Head over to the notion database which you want to add
 												the komoot data to
 											</List.Item>
 											<List.Item>
-												copy the databaseID to the script: it should look like:{" "}
+												Copy the databaseID to the script: it should look like:{" "}
 												notion.so/<Mark>databaseID</Mark>
 												?v=05ec34ed86cf48909d9e38f2e75af478
 											</List.Item>
@@ -517,6 +521,12 @@ function Process() {
 				)}
 			</Box>
 		);
+	} else {
+		<Box sx={{ maxWidth: 500 }} mx="auto">
+			<Skeleton height={8} radius="xl" />
+			<Skeleton height={8} mt={6} radius="xl" />
+			<Skeleton height={8} mt={6} width="70%" radius="xl" />
+		</Box>;
 	}
 }
 

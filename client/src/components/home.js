@@ -1,19 +1,12 @@
 import React from "react";
-import { Box, Button, Center, Timeline, Text } from "@mantine/core";
-import {
-	ArrowUpRightCircle,
-	UserCircle,
-	LayoutGridAdd,
-	Prompt,
-	Database,
-} from "tabler-icons-react";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Center, Image } from "@mantine/core";
+import { ArrowUpRightCircle } from "tabler-icons-react";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
+import komootonotion from "../images/komoot-to-notion.png";
 
 function Home() {
 	const [submit, setSubmit] = useState(false);
-	const navigate = useNavigate();
 
 	return (
 		<Center mt="xl">
@@ -21,15 +14,27 @@ function Home() {
 				{submit ? (
 					<Navigate to="/process" replace={true} />
 				) : (
-					<Button
-						color="green"
-						variant="filled"
-						size="xl"
-						leftIcon={<ArrowUpRightCircle size={30} />}
-						onClick={() => setSubmit(true)}
-					>
-						Get Started
-					</Button>
+					<Box>
+						<Image
+							width={600}
+							fit="contain"
+							src={komootonotion}
+							alt="notion filter recorded"
+							mt="sm"
+						/>
+						<Center>
+							<Button
+								color="green"
+								variant="filled"
+								size="xl"
+								mt="xl"
+								leftIcon={<ArrowUpRightCircle size={30} />}
+								onClick={() => setSubmit(true)}
+							>
+								Get Started
+							</Button>
+						</Center>
+					</Box>
 				)}
 			</Box>
 		</Center>

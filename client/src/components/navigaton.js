@@ -10,6 +10,7 @@ import {
 	PasswordInput,
 	Button,
 	Group,
+	Skeleton,
 } from "@mantine/core";
 import axios from "axios";
 import { EyeCheck, EyeOff, Check, X } from "tabler-icons-react";
@@ -38,11 +39,14 @@ function Navigaton() {
 	});
 
 	async function getUserData() {
-		const res = await axios.get("http://localhost:3001/api/get-user-data", {
-			headers: {
-				accesstoken: localStorage.getItem("token"),
-			},
-		});
+		const res = await axios.get(
+			"https://komoot-to-notion.herokuapp.com/api/get-user-data",
+			{
+				headers: {
+					accesstoken: localStorage.getItem("token"),
+				},
+			}
+		);
 		return res.data;
 	}
 
@@ -58,7 +62,13 @@ function Navigaton() {
 	});
 
 	if (status === "loading") {
-		return <p>loading...</p>;
+		return (
+			<Box sx={{ maxWidth: 500 }} mx="auto">
+				<Skeleton height={8} radius="xl" />
+				<Skeleton height={8} mt={6} radius="xl" />
+				<Skeleton height={8} mt={6} width="70%" radius="xl" />
+			</Box>
+		);
 	}
 
 	if (status === "error") {
@@ -75,12 +85,15 @@ function Navigaton() {
 
 	async function UpdateUser() {
 		try {
-			const user = await axios.post("http://localhost:3001/api/update-user", {
-				accestoken: localStorage.getItem("token"),
-				username: form.values.username,
-				email: form.values.email,
-				password: form.values.password,
-			});
+			const user = await axios.post(
+				"https://komoot-to-notion.herokuapp.com/api/update-user",
+				{
+					accestoken: localStorage.getItem("token"),
+					username: form.values.username,
+					email: form.values.email,
+					password: form.values.password,
+				}
+			);
 			if (user) {
 				if (user.data.status === "ok") {
 					notifications.showNotification({
@@ -111,9 +124,12 @@ function Navigaton() {
 
 	async function deleteUser() {
 		try {
-			const user = await axios.post("http://localhost:3001/api/delete-user", {
-				accestoken: localStorage.getItem("token"),
-			});
+			const user = await axios.post(
+				"https://komoot-to-notion.herokuapp.com/api/delete-user",
+				{
+					accestoken: localStorage.getItem("token"),
+				}
+			);
 
 			if (user.data.status === "ok") {
 				notifications.showNotification({
@@ -176,7 +192,7 @@ function Navigaton() {
 										icon={<Settings size={14} />}
 										onClick={() => SetForm()}
 									>
-										Settings
+										settings
 									</Menu.Item>
 									<Divider />
 									<Menu.Item
@@ -184,7 +200,7 @@ function Navigaton() {
 										icon={<Logout size={14} />}
 										onClick={() => handleLogout()}
 									>
-										Log Out
+										log out
 									</Menu.Item>
 								</Menu>
 							</Group>

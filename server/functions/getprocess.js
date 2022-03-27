@@ -1,5 +1,5 @@
 const User = require("../model/user");
-const { encrypt, decrypt } = require("../helper/crypto.js");
+const { decrypt } = require("../helper/crypto.js");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 mongoose.connect(process.env.CONNECTION);
@@ -36,11 +36,7 @@ async function GetProcess(token) {
 				});
 			} else {
 			}
-		})
-			.clone()
-			.catch(function (err) {
-				console.log(err);
-			});
+		}).clone();
 
 		return { status: "ok", data: list_of_process };
 	} catch (err) {

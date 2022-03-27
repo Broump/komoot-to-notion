@@ -1,5 +1,5 @@
 const User = require("../model/user");
-const { encrypt, decrypt } = require("../helper/crypto.js");
+const { encrypt } = require("../helper/crypto.js");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 mongoose.connect(process.env.CONNECTION);

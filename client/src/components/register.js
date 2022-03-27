@@ -14,11 +14,14 @@ function Register() {
 	const notifications = useNotifications();
 	async function RegisterUser() {
 		try {
-			const user = await axios.post("http://localhost:3001/api/register", {
-				username: form.values.username,
-				email: form.values.email,
-				password: form.values.password,
-			});
+			const user = await axios.post(
+				"https://komoot-to-notion.herokuapp.com/api/register",
+				{
+					username: form.values.username,
+					email: form.values.email,
+					password: form.values.password,
+				}
+			);
 			if (user) {
 				if (user.data.status === "ok") {
 					notifications.showNotification({

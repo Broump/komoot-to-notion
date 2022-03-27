@@ -17,7 +17,7 @@
 ## Built With
 
 - React
-- Node
+- NodeJS
 - Express
 - Python
 - Notion API

@@ -21,8 +21,6 @@ async function LoginUser(email, password) {
 				process.env.ACCESS_TOKEN_SECRET
 			);
 			return { status: "ok", data: token };
-		} else {
-			return { status: "error" };
 		}
 	} catch (err) {
 		return { status: "error" };

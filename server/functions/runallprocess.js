@@ -44,7 +44,6 @@ async function RunAllProcess() {
 
 		return { status: "ok" };
 	} catch (err) {
-		console.log(err);
 		return { status: "error" };
 	}
 }

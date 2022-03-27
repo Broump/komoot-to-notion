@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const useAuth = () => {
 	const user = { loggedIn: false };
@@ -10,8 +10,9 @@ const useAuth = () => {
 };
 
 const ProtectedRoute = () => {
+	const location = useLocation();
 	const isAuth = useAuth();
-	return isAuth ? <Outlet /> : <Navigate to="/login" />;
+	return isAuth ? <Outlet /> : <Navigate to="/login" replace={true} />;
 };
 
 export default ProtectedRoute;

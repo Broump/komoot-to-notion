@@ -4,7 +4,7 @@
 
 ## Links
 
-- [Repo](https://github.com/Broump/komoot-to-notion> "Komoot-to-Notion Repo")
+- [Repo](<https://github.com/Broump/komoot-to-notion> "Komoot-to-Notion Repo")
 
 - [Live Demo](<https://komoot-to-notion.netlify.app> "Live Demo")
 

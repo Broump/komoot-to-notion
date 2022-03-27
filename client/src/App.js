@@ -5,6 +5,7 @@ import Login from "./components/login";
 import Process from "./components/process";
 import Home from "./components/home";
 import Navigaton from "./components/navigaton";
+import DatabaseSettings from "./components/databaseSettings";
 import { Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -17,6 +18,7 @@ function App() {
 				<Route path="/" element={<Home />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
+				<Route path="/databasesettings" element={<DatabaseSettings />} />
 				<Route element={<ProtectedRoute />}>
 					<Route path="/process" element={<Process />} />
 				</Route>

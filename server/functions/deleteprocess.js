@@ -2,9 +2,8 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const User = require("../model/user");
 mongoose.connect(process.env.CONNECTION);
-const runallprocess = require("../functions/runallprocess");
 
-async function StartStopProcess(token, processid, process_status) {
+async function DeleteProcess(token, processid) {
 	try {
 		const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 		const email = decoded.email;
@@ -15,18 +14,10 @@ async function StartStopProcess(token, processid, process_status) {
 
 		const result = await User.findOneAndUpdate(
 			{
-				"process._id": processid,
+				email: user.email,
 			},
-			{
-				$set: {
-					"process.$.process_status": process_status,
-				},
-			}
+			{ $pull: { process: { _id: processid } } }
 		);
-
-		if (process_status === "started") {
-			runallprocess.RunAllProcess();
-		}
 
 		return { status: "ok" };
 	} catch (err) {
@@ -35,5 +26,5 @@ async function StartStopProcess(token, processid, process_status) {
 }
 
 module.exports = {
-	StartStopProcess,
+	DeleteProcess,
 };

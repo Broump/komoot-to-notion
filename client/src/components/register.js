@@ -1,12 +1,17 @@
 import React from "react";
 import { TextInput, PasswordInput, Button, Box } from "@mantine/core";
-import { EyeCheck, EyeOff } from "tabler-icons-react";
+import { EyeCheck, EyeOff, Check, X } from "tabler-icons-react";
 import { LockClosedIcon } from "@radix-ui/react-icons";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { useState } from "react";
+import { useNotifications } from "@mantine/notifications";
 
 function Register() {
+	const [submit, setSubmit] = useState(false);
+	const notifications = useNotifications();
 	async function RegisterUser() {
 		try {
 			const user = await axios.post("http://localhost:3001/api/register", {
@@ -15,9 +20,26 @@ function Register() {
 				password: form.values.password,
 			});
 			if (user) {
-				console.log(user.status);
-				if (user.status === 200) {
+				if (user.data.status === "ok") {
+					notifications.showNotification({
+						title: "successfully registerd",
+						message: "your are now redirected to the login page",
+						color: "green",
+						loading: false,
+						icon: <Check />,
+						disallowClose: true,
+					});
 					form.reset();
+					setSubmit(true);
+				} else {
+					notifications.showNotification({
+						title: "there was an error",
+						message: "username or email are already in use",
+						color: "red",
+						loading: false,
+						icon: <X />,
+						disallowClose: true,
+					});
 				}
 			}
 		} catch (err) {
@@ -51,36 +73,43 @@ function Register() {
 
 	return (
 		<Box sx={{ maxWidth: 400 }} mx="auto">
-			<form onSubmit={form.onSubmit(RegisterUser)}>
-				<TextInput
-					placeholder="your username"
-					label="username"
-					size="md"
-					required
-					{...form.getInputProps("username")}
-				/>
-				<TextInput
-					placeholder="example@mail.com"
-					label="email"
-					size="md"
-					required
-					{...form.getInputProps("email")}
-				/>
-				<PasswordInput
-					placeholder="password"
-					icon={<LockClosedIcon />}
-					label="password"
-					size="md"
-					required
-					visibilityToggleIcon={({ reveal, size }) =>
-						reveal ? <EyeOff size={size} /> : <EyeCheck size={size} />
-					}
-					{...form.getInputProps("password")}
-				/>
-				<Button variant="outline" color="lime" type="submit" mx="20">
-					register
-				</Button>
-			</form>
+			{submit ? (
+				<Navigate to="/login" replace={true} />
+			) : (
+				<form onSubmit={form.onSubmit(RegisterUser)}>
+					<TextInput
+						placeholder="your username"
+						label="username"
+						size="md"
+						required
+						mt="sm"
+						{...form.getInputProps("username")}
+					/>
+					<TextInput
+						placeholder="example@mail.com"
+						label="email"
+						size="md"
+						required
+						mt="sm"
+						{...form.getInputProps("email")}
+					/>
+					<PasswordInput
+						placeholder="password"
+						icon={<LockClosedIcon />}
+						label="password"
+						size="md"
+						required
+						mt="sm"
+						visibilityToggleIcon={({ reveal, size }) =>
+							reveal ? <EyeOff size={size} /> : <EyeCheck size={size} />
+						}
+						{...form.getInputProps("password")}
+					/>
+					<Button variant="outline" color="lime" type="submit" mx="20" mt="sm">
+						register
+					</Button>
+				</form>
+			)}
 		</Box>
 	);
 }

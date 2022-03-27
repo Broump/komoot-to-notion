@@ -14,8 +14,7 @@ async function RegisterUser(username, email, password) {
 		});
 		return { status: "ok" };
 	} catch (err) {
-		console.log(err);
-		return { status: "error", error: "Duplicate email" };
+		return { status: "error" };
 	}
 }
 

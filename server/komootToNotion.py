@@ -96,7 +96,7 @@ class KomootToNotion:
                     url = "https://api.notion.com/v1/pages"
 
                     payload = {
-                        "parent": {"database_id": "a1598dbcf93f4801bd35e9c905b12e18"},
+                        "parent": {"database_id": "{0}".format(self.notion_database_id},
                         "properties": {
                             "tourname": {
                                 "title": [
